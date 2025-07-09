@@ -1,11 +1,10 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: DaemonSet
 metadata:
-  name: nginx-replicaset
+  name: nginx-daemonset
   labels:
     app: nginx
 spec:
-  replicas: 5
   selector:
     matchLabels:
       app: nginx
@@ -15,5 +14,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx-container
-        image: registry.hub.docker.com/library/nginx
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
